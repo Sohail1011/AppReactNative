@@ -21,22 +21,36 @@ const App = () => {
       return;
     }
 
-    setSelectedImage({ localUri: pickerResult.uri })
+    setSelectedImage({ localUri: pickerResult.uri });
+  };
+
+  const openShareDialog = async () => {
+    if (!(await Sharing.isAvailableAsync())) {
+      alert("Sharing, this not available on your platform.");
+      return;
+    }
+
+    await Sharing.shareAsync(selectedImage.localUri);
   }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>View Image</Text>
-      <Image
-        source={{ uri: selectedImage !== null ? selectedImage.localUri : "https://picsum.photos/800/800" }}
-        style={styles.imageSize}
-      />
       <TouchableOpacity
-        onPress={openImagePickerAsync}
-        style={styles.buttonProperties}
-      >
-        <Text style={styles.buttonTitle}>Press Me</Text>
+        onPress={openImagePickerAsync}>
+        <Image
+          source={{ uri: selectedImage !== null ? selectedImage.localUri : "https://picsum.photos/800/800" }}
+          style={styles.imageSize} />
       </TouchableOpacity>
+
+      {
+        selectedImage ? (
+          <TouchableOpacity onPress={openShareDialog} style={styles.buttonProperties}>
+            <Text style={styles.buttonTitle}>Share this image</Text>
+          </TouchableOpacity>) : (
+          <View />
+        )
+      }
     </View>
   );
 };
