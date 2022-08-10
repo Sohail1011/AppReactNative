@@ -1,19 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, View, StyleSheet, Image, TouchableOpacity, Alert } from "react-native";
 import image from './assets/kitana_and_mileena.jpg';
 import * as ImagePicker from 'expo-image-picker';
+import * as Sharing from 'expo-sharing';
 
 const App = () => {
+
+  const [selectedImage, setSelectedImage] = useState(null)
+
+  let openImagePickerAsync = async () => {
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync()
+
+    if (permissionResult.granted === false) {
+      alert('Permission to access galery is denied');
+      return;
+    }
+
+    const pickerResult = await ImagePicker.launchImageLibraryAsync()
+    if (pickerResult.cancelled === true) {
+      return;
+    }
+
+    setSelectedImage({ localUri: pickerResult.uri })
+  }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.sis}>Mileena</Text>
-      <Text style={styles.conector}>And</Text>
-      <Text style={styles.friend}>Kitana</Text>
+      <Text style={styles.title}>View Image</Text>
       <Image
-        source={image}
+        source={{ uri: selectedImage !== null ? selectedImage.localUri : "https://picsum.photos/800/800" }}
         style={styles.imageSize}
       />
       <TouchableOpacity
+        onPress={openImagePickerAsync}
         style={styles.buttonProperties}
       >
         <Text style={styles.buttonTitle}>Press Me</Text>
@@ -24,11 +43,9 @@ const App = () => {
 
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'black' },
-  sis: { fontStyle: "normal", fontSize: 30, color: '#ff1493' },
-  friend: { fontStyle: 'normal', fontSize: 30, color: 'aqua' },
   imageSize: { width: 350, height: 500, borderRadius: 20 },
-  conector: { fontStyle: 'normal', fontSize: 30, color: 'white' },
-  buttonProperties: { backgroundColor: 'brown', padding: 7, marginTop: 8, borderRadius: 10 },
+  title: { fontSize: 30, fontStyle: 'normal', color: 'aqua', marginBottom: 15 },
+  buttonProperties: { backgroundColor: 'brown', padding: 7, marginTop: 8, borderRadius: 10, alignItems: 'center' },
   buttonTitle: { fontSize: 20, fontStyle: 'normal', color: 'white' }
 })
 
