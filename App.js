@@ -14,7 +14,6 @@ const App = () => {
         style={styles.imageSize}
       />
       <TouchableOpacity
-        onPress={() => }
         style={styles.buttonProperties}
       >
         <Text style={styles.buttonTitle}>Press Me</Text>
@@ -25,8 +24,8 @@ const App = () => {
 
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'black' },
-  sis: { fontStyle: "normal", fontSize: 30, color: 'purple' },
-  friend: { fontStyle: 'normal', fontSize: 30, color: 'blue' },
+  sis: { fontStyle: "normal", fontSize: 30, color: '#ff1493' },
+  friend: { fontStyle: 'normal', fontSize: 30, color: 'aqua' },
   imageSize: { width: 350, height: 500, borderRadius: 20 },
   conector: { fontStyle: 'normal', fontSize: 30, color: 'white' },
   buttonProperties: { backgroundColor: 'brown', padding: 7, marginTop: 8, borderRadius: 10 },
