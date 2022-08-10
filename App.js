@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, View, StyleSheet, Image, TouchableOpacity, Alert } from "react-native";
 import image from './assets/kitana_and_mileena.jpg';
+import * as ImagePicker from 'expo-image-picker';
 
 const App = () => {
   return (
@@ -13,7 +14,7 @@ const App = () => {
         style={styles.imageSize}
       />
       <TouchableOpacity
-        onPress={() => Alert.alert('This image is not my property, there are fanarts.')}
+        onPress={() => }
         style={styles.buttonProperties}
       >
         <Text style={styles.buttonTitle}>Press Me</Text>
